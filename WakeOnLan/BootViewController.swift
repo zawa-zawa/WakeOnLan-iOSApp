@@ -8,14 +8,10 @@
 
 import Foundation
 import UIKit
-import CoreData
 import CocoaAsyncSocket
 
 class BootViewController: UIViewController, GCDAsyncUdpSocketDelegate {
 
-    let ip = "221.119.216.202"
-    let port: UInt16 = 4900
-    let mac: [UInt8] = [0x94, 0xDE, 0x80, 0x6D, 0x76, 0x42]
     var socket: GCDAsyncUdpSocket!
     
     override func viewDidLoad() {
@@ -23,7 +19,37 @@ class BootViewController: UIViewController, GCDAsyncUdpSocketDelegate {
     }
     
     @IBAction func bootBtn(sender: AnyObject) {
-//        sendPacket(ip, PORT: port, MAC: mac)
+        
+        if targetDataArray.count > 0 {
+            for var i = 0; i < targetDataArray.count; i++ {
+                
+                let target = targetDataArray[i]
+                if target["flag"] as! Bool == true {
+                
+                    var ip: String = ""
+                    var port: UInt16 = 0
+                    var mac: [UInt8] = [0]
+                    
+                    if target["ip"] as? String != nil {
+                        ip = target["ip"] as! String
+                    }
+                    if target["port"] as? UInt16 != nil {
+                        port = target["port"] as! UInt16
+                    }
+                    if target["mac"] as? String != nil {
+                        mac = self.textToMac(target["mac"] as! String)
+                    }
+       
+                    sendPacket(ip, PORT: port, MAC: mac)
+                    print("PacketSend: \(target["title"])")
+                } else {
+                    showAlert("Error", message: "The target has not been selected.")
+                }
+            } //end for
+        } else {
+            showAlert("Error", message: "You must input Target of SettingsTab.")
+        }
+    
     }
     
     func sendPacket(IP: String, PORT: UInt16, MAC: [UInt8]){
@@ -44,9 +70,18 @@ class BootViewController: UIViewController, GCDAsyncUdpSocketDelegate {
         socket.sendData(packet, withTimeout: 2, tag: 0)
     }
     
+    func showAlert(title: String?, message: String?) {
+        
+        let alertController = UIAlertController(title: title, message: (message ?? ""), preferredStyle: .Alert)
+        let dafaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        alertController.addAction(dafaultAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    
     
     //String -> UInt8 MacAddress
-    
     func stringToHex(str: String) -> UInt8 {
         
         var hex: UInt32 = 0x0;

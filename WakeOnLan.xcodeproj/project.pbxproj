@@ -10,7 +10,6 @@
 		0B7A639F9089CCD55339FCB0 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDBDEE4A05317D2FF2283303 /* Pods.framework */; };
 		EB1085D81C1FD94E002AE141 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1085D71C1FD94E002AE141 /* SettingsViewController.swift */; };
 		EB1178881C20470100B7CABA /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1178871C20470100B7CABA /* AddViewController.swift */; };
-		EB3181261C23992A001DE0C0 /* WakeOnLanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3181251C23992A001DE0C0 /* WakeOnLanViewController.swift */; };
 		EB3181281C23A214001DE0C0 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3181271C23A214001DE0C0 /* TabBarController.swift */; };
 		EB8D51EF1C1FD2E1007201D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8D51EE1C1FD2E1007201D8 /* AppDelegate.swift */; };
 		EB8D51F41C1FD2E1007201D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB8D51F21C1FD2E1007201D8 /* Main.storyboard */; };
@@ -20,6 +19,8 @@
 		EB8D52071C1FD2E1007201D8 /* WakeOnLanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8D52061C1FD2E1007201D8 /* WakeOnLanTests.swift */; };
 		EB8D52121C1FD2E2007201D8 /* WakeOnLanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8D52111C1FD2E2007201D8 /* WakeOnLanUITests.swift */; };
 		EB8D52201C1FD2F2007201D8 /* BootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8D521F1C1FD2F2007201D8 /* BootViewController.swift */; };
+		EBE542321C31660200FDE2B2 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE542311C31660200FDE2B2 /* Data.swift */; };
+		EBFC72EA1C39479E0047F698 /* HowToUse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFC72E91C39479E0047F698 /* HowToUse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +45,6 @@
 		AFB2B1F90C378AAA375C3F40 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		EB1085D71C1FD94E002AE141 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		EB1178871C20470100B7CABA /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
-		EB3181251C23992A001DE0C0 /* WakeOnLanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WakeOnLanViewController.swift; sourceTree = "<group>"; };
 		EB3181271C23A214001DE0C0 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		EB8D51EB1C1FD2E1007201D8 /* WakeOnLan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WakeOnLan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB8D51EE1C1FD2E1007201D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +60,8 @@
 		EB8D52111C1FD2E2007201D8 /* WakeOnLanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeOnLanUITests.swift; sourceTree = "<group>"; };
 		EB8D52131C1FD2E2007201D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB8D521F1C1FD2F2007201D8 /* BootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BootViewController.swift; sourceTree = "<group>"; };
+		EBE542311C31660200FDE2B2 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		EBFC72E91C39479E0047F698 /* HowToUse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HowToUse.swift; sourceTree = "<group>"; };
 		FDBDEE4A05317D2FF2283303 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -131,11 +133,12 @@
 		EB8D51ED1C1FD2E1007201D8 /* WakeOnLan */ = {
 			isa = PBXGroup;
 			children = (
+				EBE542311C31660200FDE2B2 /* Data.swift */,
 				EB3181271C23A214001DE0C0 /* TabBarController.swift */,
 				EB8D521F1C1FD2F2007201D8 /* BootViewController.swift */,
 				EB1085D71C1FD94E002AE141 /* SettingsViewController.swift */,
 				EB1178871C20470100B7CABA /* AddViewController.swift */,
-				EB3181251C23992A001DE0C0 /* WakeOnLanViewController.swift */,
+				EBFC72E91C39479E0047F698 /* HowToUse.swift */,
 				EB8D51EE1C1FD2E1007201D8 /* AppDelegate.swift */,
 				EB8D51F21C1FD2E1007201D8 /* Main.storyboard */,
 				EB8D51F81C1FD2E1007201D8 /* Assets.xcassets */,
@@ -353,9 +356,10 @@
 				EB3181281C23A214001DE0C0 /* TabBarController.swift in Sources */,
 				EB8D51EF1C1FD2E1007201D8 /* AppDelegate.swift in Sources */,
 				EB1178881C20470100B7CABA /* AddViewController.swift in Sources */,
-				EB3181261C23992A001DE0C0 /* WakeOnLanViewController.swift in Sources */,
+				EBE542321C31660200FDE2B2 /* Data.swift in Sources */,
 				EB8D52201C1FD2F2007201D8 /* BootViewController.swift in Sources */,
 				EB1085D81C1FD94E002AE141 /* SettingsViewController.swift in Sources */,
+				EBFC72EA1C39479E0047F698 /* HowToUse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,6 +503,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = WakeOnLan/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.ed.spec.kumagaya-th.WakeOnLan";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -511,6 +516,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = WakeOnLan/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.ed.spec.kumagaya-th.WakeOnLan";
 				PRODUCT_NAME = "$(TARGET_NAME)";
