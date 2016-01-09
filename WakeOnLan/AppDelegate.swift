@@ -30,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             userDefaults.synchronize()
         }
         
+        sleep(1)
+        
         return true
     }
     

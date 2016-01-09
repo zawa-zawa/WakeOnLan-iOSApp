@@ -16,12 +16,9 @@ class HouToUseViewController: UIViewController {
         super.viewDidLoad()
         
         self.textLabel.text = "" +
-            "A simple Wake On Lan application.\n\n" +
+            "A simple Wake-On-Lan application.\n\n" +
             "You will need to configure your computer to enable WakeOnLan first.\n\n" +
-            "Pressing the Boot button, 'Settings' tab of the switch it will send the packet to the target that are turned on.\n" +
-            "Please update by pulling If you add the target. To delete You can delete it by swiping the cell to the left.\n" +
-            "" +
-            "" +
-            ""
+            "Tapping the Boot button, it will send the packet to the target that are turned on.\n" +
+            "Please update by pulling down when you add the target. To delete You can delete it by swiping the cell to the left.\n"
     }
 }

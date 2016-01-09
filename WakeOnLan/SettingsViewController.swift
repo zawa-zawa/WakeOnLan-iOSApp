@@ -22,7 +22,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         self.tableView!.delegate = self
         
         //Auto Layout
-        self.tableView!.estimatedRowHeight = 95.0
+        self.tableView!.estimatedRowHeight = 113.0
         self.tableView!.rowHeight = UITableViewAutomaticDimension
         
         //Back button text
@@ -33,7 +33,6 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         //refresh
         refreshCtrl = UIRefreshControl()
-        //refreshCtrl.attributedTitle = NSAttributedString(string: "refresh")
         refreshCtrl.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
         tableView!.addSubview(refreshCtrl)
     }
@@ -111,6 +110,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         self.performSegueWithIdentifier("toAddView",sender: nil)
     }
 
+    
     //Switch
     @IBAction func onDidChangedSwitch(sender: UISwitch) {
         
@@ -138,14 +138,13 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         let delete = UITableViewRowAction(style: .Normal, title: "Delete") {
             (action, indexPath) in
         
-            //delete
             targetDataArray.removeAtIndex(indexPath.row)
                 
             userDefaults.setValue(targetDataArray, forKey: "TargetDatas")
             self.tableView!.reloadData()
         }
-        
         delete.backgroundColor = UIColor.redColor()
+        
         return [delete]
     }
     

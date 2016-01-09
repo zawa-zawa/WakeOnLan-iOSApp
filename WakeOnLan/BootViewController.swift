@@ -6,13 +6,10 @@
 //  Copyright © 2015年 Yuta Aizawa. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import CocoaAsyncSocket
 
-class BootViewController: UIViewController, GCDAsyncUdpSocketDelegate {
-
-    var socket: GCDAsyncUdpSocket!
+class BootViewController: UIViewController, AsyncUdpSocketDelegate, GCDAsyncUdpSocketDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,41 +30,40 @@ class BootViewController: UIViewController, GCDAsyncUdpSocketDelegate {
                     if target["ip"] as? String != nil {
                         ip = target["ip"] as! String
                     }
-                    if target["port"] as? UInt16 != nil {
-                        port = target["port"] as! UInt16
+                    if target["port"] as? String != nil {
+                        port = stringToUInt16(target["port"] as! String)
                     }
                     if target["mac"] as? String != nil {
                         mac = self.textToMac(target["mac"] as! String)
                     }
-       
-                    sendPacket(ip, PORT: port, MAC: mac)
-                    print("PacketSend: \(target["title"])")
+                    
+                    sendPacket(ip, port: port, mac: mac)
+                    print("\(target["title"]!): Send  ip:\(ip) port:\(port) mac:\(mac)")
                 } else {
-                    showAlert("Error", message: "The target has not been selected.")
+                    print("\(target["title"]!): No Send")
                 }
             } //end for
+            
         } else {
             showAlert("Error", message: "You must input Target of SettingsTab.")
         }
-    
     }
     
-    func sendPacket(IP: String, PORT: UInt16, MAC: [UInt8]){
+    func sendPacket(ip: String, port: UInt16, mac: [UInt8]){
 
-        //Setup connection
-        socket = GCDAsyncUdpSocket(delegate: self, delegateQueue: dispatch_get_main_queue())
-        try! socket.connectToHost(IP, onPort: PORT)
+        let socket: GCDAsyncUdpSocket = GCDAsyncUdpSocket(delegate: self, delegateQueue: dispatch_get_main_queue() )
         
         //Create packet data
         var data: [UInt8] = [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]
         for var i = 0; i < 16; i++ {
-            data += MAC
+            data += mac
         }
         
         let packet = NSData(bytes: data, length: data.count)
         
         //Send
-        socket.sendData(packet, withTimeout: 2, tag: 0)
+        try! socket.enableBroadcast(true)
+        socket.sendData(packet, toHost: ip, port: port, withTimeout: 1, tag: 0)
     }
     
     func showAlert(title: String?, message: String?) {
@@ -79,20 +75,16 @@ class BootViewController: UIViewController, GCDAsyncUdpSocketDelegate {
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     
-    
-    
-    //String -> UInt8 MacAddress
-    func stringToHex(str: String) -> UInt8 {
+    //StringToInt
+    func stringToUInt16(text: String) -> UInt16 {
         
-        var hex: UInt32 = 0x0;
-        let scanner: NSScanner = NSScanner(string: str)
-        scanner.scanHexInt(&hex)
+        let int: Int = Int(text)!
+        let uint16: UInt16 = UInt16(int)
         
-        let uInt8Hex = UInt8(hex)
-        
-        return uInt8Hex
+        return uint16
     }
     
+    //String -> UInt8 MacAddress
     func textToMac(text: String) -> [UInt8] {
         
         var array: [String] = []
@@ -107,6 +99,9 @@ class BootViewController: UIViewController, GCDAsyncUdpSocketDelegate {
         else if let _ = text.rangeOfString(",") {
             array = text.componentsSeparatedByString(",")
         }
+        else {
+            array = ["FF", "FF", "FF", "FF", "FF", "FF"]
+        }
         
         for var i = 0; i < array.count; i++ {
             returnArray.append(stringToHex(array[i]))
@@ -114,5 +109,15 @@ class BootViewController: UIViewController, GCDAsyncUdpSocketDelegate {
         
         return returnArray
     }
-
+    func stringToHex(str: String) -> UInt8 {
+        
+        var hex: UInt32 = 0x0;
+        let scanner: NSScanner = NSScanner(string: str)
+        scanner.scanHexInt(&hex)
+        
+        let uInt8Hex: UInt8 = UInt8(hex)
+        
+        return uInt8Hex
+    }
+    
 }
