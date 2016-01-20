@@ -15,6 +15,11 @@ class AddViewController: UIViewController {
     @IBOutlet weak var ipTextField: UITextField!
     @IBOutlet weak var portTextField: UITextField!
     @IBOutlet weak var macTextField: UITextField!
+    @IBOutlet weak var broadcastSwitch: UISwitch!
+    
+    @IBAction func tapScreen(sender: AnyObject) {
+        self.view.endEditing(true)
+    }
     
     @IBAction func saveBtn(sender: AnyObject) {
         if save() == true {
@@ -26,7 +31,7 @@ class AddViewController: UIViewController {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    var target: Target = Target(title: "", ip: "", port: "", mac: "", flag: true)
+    var target: Target = Target(title: "", ip: "", port: "", mac: "", broadcast: true, flag: true)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +41,7 @@ class AddViewController: UIViewController {
             self.ipTextField.text = editTargetData!["ip"] as? String
             self.portTextField.text = editTargetData!["port"] as? String
             self.macTextField.text = editTargetData!["mac"] as? String
+            self.broadcastSwitch.on = editTargetData!["broadcast"] as! Bool
         }
     }
     
@@ -58,7 +64,7 @@ class AddViewController: UIViewController {
     private func targetAddToArray() -> Bool {
     
         if nameTextField.text != "" && ipTextField.text != "" && portTextField.text != "" && macTextField.text != "" {
-            let targetData = self.target.stringForNSDictionary(nameTextField.text!, ip: ipTextField.text!, port: portTextField.text!, mac: macTextField.text!, flag: true)
+            let targetData = self.target.stringForNSDictionary(nameTextField.text!, ip: ipTextField.text!, port: portTextField.text!, mac: macTextField.text!, broadcast: broadcastSwitch.on, flag: true)
             
             if editTargetIndex != nil {
                 targetDataArray[editTargetIndex!.row] = targetData

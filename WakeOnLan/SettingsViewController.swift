@@ -12,7 +12,7 @@ import UIKit
 class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet var tableView: UITableView? = UITableView()
-
+    
     var refreshCtrl: UIRefreshControl!
     
     override func viewDidLoad() {
@@ -61,7 +61,8 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         let ipAddress = cell.viewWithTag(2) as! UILabel
         let port = cell.viewWithTag(3) as! UILabel
         let mac = cell.viewWithTag(4) as! UILabel
-        let flagSwitch = cell.viewWithTag(5) as! UISwitch
+        let broadcast = cell.viewWithTag(5) as! UILabel
+        let flagSwitch = cell.viewWithTag(6) as! UISwitch
         
         let target: NSDictionary = targetDataArray[indexPath.row]
     
@@ -69,6 +70,13 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         ipAddress.text = "IP       : " + "\(target["ip"] as! String)"
         port.text = "PORT : " + "\(target["port"] as! String)"
         mac.text = "MAC  : " + "\(target["mac"] as! String)"
+        broadcast.text = "BROADCAST : "
+        let cast = target["broadcast"] as! Bool
+        if cast == true {
+            broadcast.text = broadcast.text! + "ON"
+        } else {
+            broadcast.text = broadcast.text! + "OFF"
+        }
         flagSwitch.on = target["flag"] as! Bool
         
         
@@ -101,9 +109,10 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         let ip = target["ip"] as! String
         let port = target["port"] as! String
         let mac = target["mac"] as! String
+        let broadcast = target["broadcast"] as! Bool
         
-        let edit = Target(title: "", ip: "", port: "", mac: "", flag: true)
-        editTargetData = edit.stringForNSDictionary(title, ip: ip, port: port, mac: mac, flag: true)
+        let edit = Target(title: "", ip: "", port: "", mac: "", broadcast: true, flag: true)
+        editTargetData = edit.stringForNSDictionary(title, ip: ip, port: port, mac: mac, broadcast: broadcast, flag: true)
         
         editTargetIndex = indexPath
         
@@ -122,9 +131,9 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
 
     private func changeSwitch(flag: Bool, indexPath: NSIndexPath) {
         
-        let target: Target = Target(title: "", ip: "", port: "", mac: "", flag: true)
+        let target: Target = Target(title: "", ip: "", port: "", mac: "", broadcast: true, flag: true)
         let dic = targetDataArray[indexPath.row]
-        let data = target.stringForNSDictionary(dic["title"] as! String, ip: dic["ip"] as! String, port: dic["port"] as! String, mac: dic["mac"] as! String, flag: flag)
+        let data = target.stringForNSDictionary(dic["title"] as! String, ip: dic["ip"] as! String, port: dic["port"] as! String, mac: dic["mac"] as! String, broadcast: dic["broadcast"] as! Bool, flag: flag)
         targetDataArray[indexPath.row] = data
     }
     

@@ -26,6 +26,7 @@ class BootViewController: UIViewController, AsyncUdpSocketDelegate, GCDAsyncUdpS
                     var ip: String = ""
                     var port: UInt16 = 0
                     var mac: [UInt8] = [0]
+                    var broadcast: Bool = true
                     
                     if target["ip"] as? String != nil {
                         ip = target["ip"] as! String
@@ -36,9 +37,12 @@ class BootViewController: UIViewController, AsyncUdpSocketDelegate, GCDAsyncUdpS
                     if target["mac"] as? String != nil {
                         mac = self.textToMac(target["mac"] as! String)
                     }
+                    if target["broadcast"] as? Bool != nil {
+                        broadcast = target["broadcast"] as! Bool
+                    }
                     
-                    sendPacket(ip, port: port, mac: mac)
-                    print("\(target["title"]!): Send  ip:\(ip) port:\(port) mac:\(mac)")
+                    sendPacket(ip, port: port, mac: mac, broadcast: broadcast)
+                    print("\(target["title"]!): Send  ip:\(ip) port:\(port) mac:\(mac) broadcast:\(broadcast)")
                 } else {
                     print("\(target["title"]!): No Send")
                 }
@@ -49,7 +53,7 @@ class BootViewController: UIViewController, AsyncUdpSocketDelegate, GCDAsyncUdpS
         }
     }
     
-    func sendPacket(ip: String, port: UInt16, mac: [UInt8]){
+    func sendPacket(ip: String, port: UInt16, mac: [UInt8], broadcast: Bool){
 
         let socket: GCDAsyncUdpSocket = GCDAsyncUdpSocket(delegate: self, delegateQueue: dispatch_get_main_queue() )
         
@@ -62,7 +66,7 @@ class BootViewController: UIViewController, AsyncUdpSocketDelegate, GCDAsyncUdpS
         let packet = NSData(bytes: data, length: data.count)
         
         //Send
-        try! socket.enableBroadcast(true)
+        try! socket.enableBroadcast(broadcast)
         socket.sendData(packet, toHost: ip, port: port, withTimeout: 1, tag: 0)
     }
     

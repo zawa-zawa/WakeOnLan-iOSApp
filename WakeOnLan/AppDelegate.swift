@@ -24,8 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             userDefaults.setObject(false, forKey: "firstLaunch")
             
-            let target = Target(title: "", ip: "", port: "", mac: "", flag: true)
-            targetDataArray.append(target.stringForNSDictionary("Sample", ip: "192.168.0.1", port: "50000", mac: "FF:FF:FF:FF:FF:FF", flag: true))
+            let target = Target(title: "", ip: "", port: "", mac: "", broadcast: true, flag: true)
+            targetDataArray.append(target.stringForNSDictionary("Sample", ip: "192.168.0.255", port: "50000", mac: "AA:AA:AA:AA:AA:AA", broadcast: true, flag: true))
             
             userDefaults.synchronize()
         }
