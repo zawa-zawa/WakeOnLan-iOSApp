@@ -18,7 +18,7 @@ class BootViewController: UIViewController, AsyncUdpSocketDelegate, GCDAsyncUdpS
     @IBAction func bootBtn(sender: AnyObject) {
         
         if targetDataArray.count > 0 {
-            for var i = 0; i < targetDataArray.count; i++ {
+            for i in 0 ..< targetDataArray.count {
                 
                 let target = targetDataArray[i]
                 if target["flag"] as! Bool == true {
@@ -46,7 +46,7 @@ class BootViewController: UIViewController, AsyncUdpSocketDelegate, GCDAsyncUdpS
                 } else {
                     print("\(target["title"]!): No Send")
                 }
-            } //end for
+            }
             
         } else {
             showAlert("Error", message: "You must input Target of SettingsTab.")
@@ -59,7 +59,8 @@ class BootViewController: UIViewController, AsyncUdpSocketDelegate, GCDAsyncUdpS
         
         //Create packet data
         var data: [UInt8] = [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]
-        for var i = 0; i < 16; i++ {
+        
+        for _ in 0..<16{
             data += mac
         }
         
@@ -107,7 +108,7 @@ class BootViewController: UIViewController, AsyncUdpSocketDelegate, GCDAsyncUdpS
             array = ["FF", "FF", "FF", "FF", "FF", "FF"]
         }
         
-        for var i = 0; i < array.count; i++ {
+        for i in 0 ..< array.count {
             returnArray.append(stringToHex(array[i]))
         }
         

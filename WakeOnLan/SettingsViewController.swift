@@ -33,7 +33,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         //refresh
         refreshCtrl = UIRefreshControl()
-        refreshCtrl.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
+        refreshCtrl.addTarget(self, action: #selector(SettingsViewController.refresh), forControlEvents: UIControlEvents.ValueChanged)
         tableView!.addSubview(refreshCtrl)
     }
     
@@ -87,15 +87,15 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         
         //Adapt to the left
-        if cell.respondsToSelector("separatorInset") {
+        if cell.respondsToSelector(Selector("separatorInset")) {
             cell.separatorInset = UIEdgeInsetsZero
         }
         
-        if cell.respondsToSelector("preservesSuperviewLayoutMargins") {
+        if cell.respondsToSelector(Selector("preservesSuperviewLayoutMargins")) {
             cell.preservesSuperviewLayoutMargins = false
         }
         
-        if cell.respondsToSelector("layoutMargins") {
+        if cell.respondsToSelector(Selector("layoutMargins")) {
             cell.layoutMargins = UIEdgeInsetsZero
         }
         

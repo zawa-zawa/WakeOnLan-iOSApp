@@ -26,6 +26,7 @@ class TabBarController: UITabBarController {
         
         //StatusBar TextColor
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+        
     }
     
     override func didReceiveMemoryWarning() {
