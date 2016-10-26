@@ -17,18 +17,18 @@ class AddViewController: UIViewController {
     @IBOutlet weak var macTextField: UITextField!
     @IBOutlet weak var broadcastSwitch: UISwitch!
     
-    @IBAction func tapScreen(sender: AnyObject) {
+    @IBAction func tapScreen(_ sender: AnyObject) {
         self.view.endEditing(true)
     }
     
-    @IBAction func saveBtn(sender: AnyObject) {
+    @IBAction func saveBtn(_ sender: AnyObject) {
         if save() == true {
-            self.navigationController?.popViewControllerAnimated(true)
+            self.navigationController?.popViewController(animated: true)
         }
     }
-    @IBAction func closeBtn(sender: AnyObject) {
+    @IBAction func closeBtn(_ sender: AnyObject) {
         editInit()
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     var target: Target = Target(title: "", ip: "", port: "", mac: "", broadcast: true, flag: true)
@@ -41,7 +41,7 @@ class AddViewController: UIViewController {
             self.ipTextField.text = editTargetData!["ip"] as? String
             self.portTextField.text = editTargetData!["port"] as? String
             self.macTextField.text = editTargetData!["mac"] as? String
-            self.broadcastSwitch.on = editTargetData!["broadcast"] as! Bool
+            self.broadcastSwitch.isOn = editTargetData!["broadcast"] as! Bool
         }
     }
     
@@ -49,7 +49,7 @@ class AddViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    private func save() -> Bool {
+    fileprivate func save() -> Bool {
         
         if targetAddToArray() == true {
             userDefaults.setValue(targetDataArray, forKey: "TargetDatas")
@@ -61,13 +61,13 @@ class AddViewController: UIViewController {
         return false
     }
     
-    private func targetAddToArray() -> Bool {
+    fileprivate func targetAddToArray() -> Bool {
     
         if nameTextField.text != "" && ipTextField.text != "" && portTextField.text != "" && macTextField.text != "" {
-            let targetData = self.target.stringForNSDictionary(nameTextField.text!, ip: ipTextField.text!, port: portTextField.text!, mac: macTextField.text!, broadcast: broadcastSwitch.on, flag: true)
+            let targetData = self.target.stringForNSDictionary(nameTextField.text!, ip: ipTextField.text!, port: portTextField.text!, mac: macTextField.text!, broadcast: broadcastSwitch.isOn, flag: true)
             
             if editTargetIndex != nil {
-                targetDataArray[editTargetIndex!.row] = targetData
+                targetDataArray[(editTargetIndex! as NSIndexPath).row] = targetData
             } else {
                 targetDataArray.append(targetData)
             }
@@ -81,18 +81,18 @@ class AddViewController: UIViewController {
         return false
     }
     
-    private func editInit() {
+    fileprivate func editInit() {
         editTargetIndex = nil
         editTargetData = nil
     }
     
-    func showAlert(title: String?, message: String?) {
+    func showAlert(_ title: String?, message: String?) {
         
-        let alertController = UIAlertController(title: title, message: (message ?? ""), preferredStyle: .Alert)
-        let dafaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        let alertController = UIAlertController(title: title, message: (message ?? ""), preferredStyle: .alert)
+        let dafaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(dafaultAction)
         
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
 }

@@ -26,14 +26,14 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         self.tableView!.rowHeight = UITableViewAutomaticDimension
         
         //Back button text
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         //Adapt to the left
-        UITableView.appearance().separatorInset = UIEdgeInsetsZero
+        UITableView.appearance().separatorInset = UIEdgeInsets.zero
         
         //refresh
         refreshCtrl = UIRefreshControl()
-        refreshCtrl.addTarget(self, action: #selector(SettingsViewController.refresh), forControlEvents: UIControlEvents.ValueChanged)
+        refreshCtrl.addTarget(self, action: #selector(SettingsViewController.refresh), for: UIControlEvents.valueChanged)
         tableView!.addSubview(refreshCtrl)
     }
     
@@ -44,18 +44,18 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     //TableView Settings
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return targetDataArray.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         //Cell texts
-        let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell")!
+        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
         
         let pcName = cell.viewWithTag(1) as! UILabel
         let ipAddress = cell.viewWithTag(2) as! UILabel
@@ -64,7 +64,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         let broadcast = cell.viewWithTag(5) as! UILabel
         let flagSwitch = cell.viewWithTag(6) as! UISwitch
         
-        let target: NSDictionary = targetDataArray[indexPath.row]
+        let target: NSDictionary = targetDataArray[(indexPath as NSIndexPath).row]
     
         pcName.text = "\(target["title"] as! String)"
         ipAddress.text = "IP       : " + "\(target["ip"] as! String)"
@@ -77,34 +77,34 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         } else {
             broadcast.text = broadcast.text! + "OFF"
         }
-        flagSwitch.on = target["flag"] as! Bool
+        flagSwitch.isOn = target["flag"] as! Bool
         
         
         //Cell Backcolor
         let cellSelectedBgView = UIView()
-        cellSelectedBgView.backgroundColor = UIColor.whiteColor()
+        cellSelectedBgView.backgroundColor = UIColor.white
         cell.selectedBackgroundView = cellSelectedBgView
         
         
         //Adapt to the left
-        if cell.respondsToSelector(Selector("separatorInset")) {
-            cell.separatorInset = UIEdgeInsetsZero
+        if cell.responds(to: #selector(getter: UITableViewCell.separatorInset)) {
+            cell.separatorInset = UIEdgeInsets.zero
         }
         
-        if cell.respondsToSelector(Selector("preservesSuperviewLayoutMargins")) {
+        if cell.responds(to: #selector(getter: UIView.preservesSuperviewLayoutMargins)) {
             cell.preservesSuperviewLayoutMargins = false
         }
         
-        if cell.respondsToSelector(Selector("layoutMargins")) {
-            cell.layoutMargins = UIEdgeInsetsZero
+        if cell.responds(to: #selector(getter: UIView.layoutMargins)) {
+            cell.layoutMargins = UIEdgeInsets.zero
         }
         
         return cell
     }
     
-    func tableView(table: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ table: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let target = targetDataArray[indexPath.row]
+        let target = targetDataArray[(indexPath as NSIndexPath).row]
         let title = target["title"] as! String
         let ip = target["ip"] as! String
         let port = target["port"] as! String
@@ -116,43 +116,43 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         editTargetIndex = indexPath
         
-        self.performSegueWithIdentifier("toAddView",sender: nil)
+        self.performSegue(withIdentifier: "toAddView",sender: nil)
     }
 
     
     //Switch
-    @IBAction func onDidChangedSwitch(sender: UISwitch) {
+    @IBAction func onDidChangedSwitch(_ sender: UISwitch) {
         
-        let point = self.tableView!.convertPoint(sender.frame.origin, fromView: sender.superview)
-        if let indexPath = self.tableView!.indexPathForRowAtPoint(point) {
-            changeSwitch(sender.on, indexPath: indexPath)
+        let point = self.tableView!.convert(sender.frame.origin, from: sender.superview)
+        if let indexPath = self.tableView!.indexPathForRow(at: point) {
+            changeSwitch(sender.isOn, indexPath: indexPath)
         }
     }
 
-    private func changeSwitch(flag: Bool, indexPath: NSIndexPath) {
+    fileprivate func changeSwitch(_ flag: Bool, indexPath: IndexPath) {
         
         let target: Target = Target(title: "", ip: "", port: "", mac: "", broadcast: true, flag: true)
-        let dic = targetDataArray[indexPath.row]
+        let dic = targetDataArray[(indexPath as NSIndexPath).row]
         let data = target.stringForNSDictionary(dic["title"] as! String, ip: dic["ip"] as! String, port: dic["port"] as! String, mac: dic["mac"] as! String, broadcast: dic["broadcast"] as! Bool, flag: flag)
-        targetDataArray[indexPath.row] = data
+        targetDataArray[(indexPath as NSIndexPath).row] = data
     }
     
     
     //Need Swipe
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {}
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {}
     
     //Swipe Settings
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        let delete = UITableViewRowAction(style: .Normal, title: "Delete") {
+        let delete = UITableViewRowAction(style: .normal, title: "Delete") {
             (action, indexPath) in
         
-            targetDataArray.removeAtIndex(indexPath.row)
+            targetDataArray.remove(at: (indexPath as NSIndexPath).row)
                 
             userDefaults.setValue(targetDataArray, forKey: "TargetDatas")
             self.tableView!.reloadData()
         }
-        delete.backgroundColor = UIColor.redColor()
+        delete.backgroundColor = UIColor.red
         
         return [delete]
     }

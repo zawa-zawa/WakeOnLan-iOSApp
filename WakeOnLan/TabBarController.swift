@@ -15,17 +15,17 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         
         //Active Color
-        UITabBar.appearance().tintColor = UIColor.whiteColor() //UIColor(red: 255/255, green: 44/255, blue: 85/255, alpha: 1.0)
+        UITabBar.appearance().tintColor = UIColor.white //UIColor(red: 255/255, green: 44/255, blue: 85/255, alpha: 1.0)
         
         //NavigatonBar TitleColor
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         //UIColor(red: 255/255, green: 44/255, blue: 85/255, alpha: 1.0)]
         
         //TabBar BackGroundColor
-        UITabBar.appearance().barTintColor = UIColor.darkGrayColor()
+        UITabBar.appearance().barTintColor = UIColor.darkGray
         
         //StatusBar TextColor
-        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+        UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: true)
         
     }
     

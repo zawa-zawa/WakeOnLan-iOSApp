@@ -18,7 +18,7 @@ struct Target {
     var broadcast: Bool
     var flag: Bool
 
-    func targetDatasNSDictionaryToTarget(dictionary: NSDictionary?) -> Target {
+    func targetDatasNSDictionaryToTarget(_ dictionary: NSDictionary?) -> Target {
         
         let titleValue = dictionary?["title"] as? String ?? "Title"
         let ipValue = dictionary?["ip"] as? String ?? "192.168.0.1"
@@ -30,7 +30,7 @@ struct Target {
         return Target(title: titleValue, ip: ipValue, port: portValue, mac: macValue, broadcast: broadcastFlag, flag: sendFlag)
     }
     
-    func stringForNSDictionary(title: String, ip: String, port: String, mac: String, broadcast: Bool, flag: Bool) -> NSDictionary {
+    func stringForNSDictionary(_ title: String, ip: String, port: String, mac: String, broadcast: Bool, flag: Bool) -> NSDictionary {
         
         let dictionary: NSDictionary = [
             "title": title,
@@ -45,12 +45,12 @@ struct Target {
 }
 
 //NSUserDefaults
-let userDefaults = NSUserDefaults.standardUserDefaults()
+let userDefaults = UserDefaults.standard
 
 //TargetData
 var targetDataArray: [NSDictionary] = []
 
 //Copying data
 var editTargetData: NSDictionary? = nil
-var editTargetIndex: NSIndexPath? = nil
+var editTargetIndex: IndexPath? = nil
 
